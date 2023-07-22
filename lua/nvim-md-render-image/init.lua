@@ -20,7 +20,7 @@ local function render_image()
   uri = uri:gsub("'", "\\'")
   uri = uri:gsub("\\", "\\\\")
 
-  local to_sixel_command = string.format("img2sixel -- '%s'", uri)
+  local to_sixel_command = string.format("img2sixel -w 80 -- '%s'", uri)
   local handle = io.popen(to_sixel_command)
 
   if not handle then
