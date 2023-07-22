@@ -1,6 +1,6 @@
 print("Hello from nvim-md-render-image")
 
--- workaround to satify linter who doesn't know
+-- workaround to satisfy linter who doesn't know
 -- about the vim global
 vim = vim
 
