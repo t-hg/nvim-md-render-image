@@ -13,11 +13,14 @@ local function render_image()
   end
 
   local uri = inline_link:match('%((.+)%)')
+
+  -- sanitize uri otherwise vulnerable against
+  -- os command injection, e.g.:
+  -- [image](" || touch pwned && echo "pwnd)
   uri = uri:gsub("\\", "\\\\")
   uri = uri:gsub("\"", "\\\"")
   uri = uri:gsub("\'", "\\\'")
-  -- is this vulnerable to command injection? YEEESSS
-  -- e.g. [image](" || touch pwned && echo "pwnd)
+
   local to_sixel_command = string.format("img2sixel -- \"%s\"", uri)
   local handle = io.popen(to_sixel_command)
 
