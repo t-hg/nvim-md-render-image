@@ -17,11 +17,10 @@ local function render_image()
   -- sanitize uri otherwise vulnerable against
   -- os command injection, e.g.:
   -- [image](" || touch pwned && echo "pwnd)
+  uri = uri:gsub("'", "\\'")
   uri = uri:gsub("\\", "\\\\")
-  uri = uri:gsub("\"", "\\\"")
-  uri = uri:gsub("\'", "\\\'")
 
-  local to_sixel_command = string.format("img2sixel -- \"%s\"", uri)
+  local to_sixel_command = string.format("img2sixel -- '%s'", uri)
   local handle = io.popen(to_sixel_command)
 
   if not handle then
