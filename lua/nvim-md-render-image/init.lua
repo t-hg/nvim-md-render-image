@@ -15,7 +15,7 @@ local function render_image()
   local namespace = vim.api.nvim_create_namespace('nvim_md_render_image_extmark')
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   vim.api.nvim_buf_set_extmark(0, namespace, row+1, 0, {
-    virt_lines = {{"line1", ""}, {"line2", ""}}
+    virt_lines = {{{"line1", ""}}, {{"line2", ""}}}
   })
 
 --  local uri = inline_link:match('%((.+)%)')
