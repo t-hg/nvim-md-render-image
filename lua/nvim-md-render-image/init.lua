@@ -27,16 +27,18 @@ local function render_image()
     return
   end
 
-  local data = handle:read("*a")
-  handle:close()
-  --local stdout = vim.loop.new_tty(1, false)
-  --stdout:write(data)
+  --local data = handle:read("*a")
+  --handle:close()
 
   local namespace = vim.api.nvim_create_namespace('nvim_md_render_image_extmark')
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   vim.api.nvim_buf_set_extmark(0, namespace, row-1, 0, {
-    virt_lines = {{{data, ""}}}
+    virt_lines = {{{"", ""}}}
   })
+
+  local stdout = vim.loop.new_tty(1, false)
+  stdout:write("\x1b[2;0H")
+  stdout:write("\x1b[31mHI THERE")
 end
 
 local function setup()
