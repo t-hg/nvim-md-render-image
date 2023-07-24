@@ -20,25 +20,33 @@ local function render_image()
   uri = uri:gsub("'", "\\'")
   uri = uri:gsub("\\", "\\\\")
 
-  --local to_sixel_command = string.format("img2sixel -w 800 -- '%s'", uri)
-  --local handle = io.popen(to_sixel_command)
+  local to_sixel_command = string.format("img2sixel -- '%s'", uri)
+  local handle = io.popen(to_sixel_command)
 
-  --if not handle then
-  --  return
-  --end
+  if not handle then
+    return
+  end
 
-  --local data = handle:read("*a")
-  --handle:close()
+  local data = handle:read("*a")
+  handle:close()
 
   local namespace = vim.api.nvim_create_namespace('nvim_md_render_image_extmark')
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   vim.api.nvim_buf_set_extmark(0, namespace, row-1, 0, {
-    virt_lines = {{{"", ""}}}
+    virt_lines = {
+      {{"", ""}},
+      {{"", ""}},
+      {{"", ""}},
+      {{"", ""}},
+      {{"", ""}},
+      {{"", ""}},
+      {{"", ""}},
+    }
   })
 
   local stdout = vim.loop.new_tty(1, false)
   stdout:write("\x1b[2;0H")
-  stdout:write("\x1b[31mHI THERE")
+  stdout:write(data)
 end
 
 local function setup()
