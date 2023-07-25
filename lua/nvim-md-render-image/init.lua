@@ -1,5 +1,3 @@
-print("Hello from nvim-md-render-image")
-
 -- workaround to satisfy linter who doesn't know
 -- about the vim global
 vim = vim
@@ -30,26 +28,8 @@ local function render_image()
   local data = handle:read("*a")
   handle:close()
 
-  --local namespace = vim.api.nvim_create_namespace('nvim_md_render_image_extmark')
-  --local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  --vim.api.nvim_buf_set_extmark(0, namespace, row-1, 0, {
-  --  virt_lines = {
-  --    {{"", ""}},
-  --    {{"", ""}},
-  --    {{"", ""}},
-  --    {{"", ""}},
-  --    {{"", ""}},
-  --    {{"", ""}},
-  --    {{"", ""}},
-  --  }
-  --})
-
   local stdout = vim.loop.new_tty(1, false)
-  --stdout:write("\x1b[2;0H")
-  local write = vim.schedule_wrap(function(data)
-    stdout:write(data)
-  end)
-  write(data)
+  stdout:write(data)
 end
 
 local function setup()
