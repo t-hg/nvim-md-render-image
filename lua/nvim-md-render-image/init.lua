@@ -46,9 +46,10 @@ local function render_image()
 
   local stdout = vim.loop.new_tty(1, false)
   --stdout:write("\x1b[2;0H")
-  vim.schedule_wrap(function()
+  local write = vim.schedule_wrap(function(data)
     stdout:write(data)
   end)
+  write(data)
 end
 
 local function setup()
