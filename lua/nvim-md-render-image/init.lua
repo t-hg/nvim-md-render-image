@@ -44,7 +44,7 @@ local function render_image()
   --  }
   --})
 
-  local stdout = vim.loop.new_tty(1, false)
+  local stdout = uv.new_tty(1, false)
   --stdout:write("\x1b[2;0H")
   stdout:write(data)
 end
