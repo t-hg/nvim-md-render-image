@@ -4,13 +4,13 @@ vim = vim
 
 local function render_image()
   local line = tostring(vim.api.nvim_get_current_line())
-  local inline_link = line:match('!%[.-%]%(.-%)')
+  local inline_link = line:match("!%[.-%]%(.-%)")
 
   if not inline_link then
     return
   end
 
-  local uri = inline_link:match('%((.+)%)')
+  local uri = inline_link:match("%((.+)%)")
 
   -- sanitize uri otherwise vulnerable against
   -- os command injection, e.g.:
@@ -37,5 +37,5 @@ local function setup()
 end
 
 return {
-  setup = setup
+  setup = setup,
 }
